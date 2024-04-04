@@ -20,7 +20,7 @@ const findBestUnitValue = (px, tolerance) => unit => {
   let result = getUnitValues(px, unit);
   const { unitValue } = result;
 
-  if (!Number.isInteger(unitValue, tolerance)) {
+  if (!Number.isInteger(unitValue)) {
     for (let i = unitValue.toString().split(".")[1].length - 1; i >= 0; i--) {
       const newUnitValue = clampPrecision(unitValue, i);
       const newResult = getUnitValues(px, unit, newUnitValue);
