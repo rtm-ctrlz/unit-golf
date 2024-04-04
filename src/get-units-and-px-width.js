@@ -44,13 +44,11 @@ const measureUnits = (value, units) => {
   };
 };
 
-const getUnits = async ({ input, width, height }) => {
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
-  await page.setViewport({ width, height });
-  const units = await page.evaluate(measureUnits, input, UNITS);
-  await browser.close();
-  return units;
+const getUnits = ({ input, width, height }) => {
+  return puppeteer.launch()
+    .then(browser => browser.newPage())
+    .then(page => page.setViewport({ width, height }).then(() => page))
+    .then(page => page.evaluate(measureUnits, input, UNITS).then(units => page.browser().close().then(() => units)));
 };
 
 module.exports = getUnits;
