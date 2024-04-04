@@ -1,3 +1,5 @@
+"use strict";
+
 const getUnitsAndPxWidth = require("./get-units-and-px-width");
 
 const clampPrecision = (number, precision = 2) => {
