@@ -20,6 +20,8 @@ const UNITS = [
 const measureUnits = (value, units) => {
   const el = document.createElement("div");
   document.body.appendChild(el);
+  const sign = value[0] === "-" ? -1 : 1;
+  let valueAbs = sign < 0 ? value.slice(1) : value;
 
   const measureEl = widthValue => {
     el.setAttribute("style", `width:${widthValue}`);
@@ -28,10 +30,10 @@ const measureUnits = (value, units) => {
     return width;
   };
 
-  const initialWidth = measureEl(value);
+  const initialWidth = measureEl(valueAbs);
 
   return {
-    pxWidth: initialWidth,
+    pxWidth: sign * initialWidth,
     units: units.map(unit => {
       const measured = measureEl(`${initialWidth}${unit}`);
       return {
